@@ -14,6 +14,9 @@
   },
   "main": "dist/main/server.js",
   "scripts": {
+    "start": "node dist/main/server.js",
+    "dev": "tsnd -r tsconfig-paths/register --inspect --transpile-only --respawn src/main/server.ts",
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
