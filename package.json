@@ -1,0 +1,19 @@
+{
+  "name": "users-api",
+  "version": "1.0.0",
+  "description": "API to manage users",
+  "license": "ISC",
+  "author": "Luan Lopes <luanglopes@gmail.com>",
+  "homepage": "https://github.com/luanglopes/users-api#readme",
+  "bugs": {
+    "url": "https://github.com/luanglopes/users-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luanglopes/users-api.git"
+  },
+  "main": "dist/main/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
