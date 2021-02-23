@@ -44,5 +44,16 @@
     "ts-node-dev": "^1.1.1",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.1.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix"
+    ]
   }
 }
