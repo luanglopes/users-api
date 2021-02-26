@@ -1,13 +1,12 @@
 import { PasswordTooShortError } from 'src/app/errors/PasswordTooShortError'
 import { FakeHashProvider } from 'src/app/providers/fakes/FakeHashProvider'
 import { InMemoryUserRepository } from 'src/app/repositories/fakes/InMemoryUserRepository'
-import { UserRolesEnum } from 'src/domain/enums/UserRolesEnum'
+import { RoleKeysEnum } from 'src/domain/enums/RoleKeysEnum'
 import { UserStatusEnum } from 'src/domain/enums/UserStatusEnum'
 import { UpdateUserService } from 'src/app/useCases/UpdateUser/UpdateUserService'
 import { IUpdateUser, UpdateUserDTO } from './IUpdateUser'
 import { UserModel } from 'src/app/models/UserModel'
-import { CreateDBUserDTO } from 'src/app/repositories/ICreateUSerRepository'
-import { User } from 'src/domain/entities/User'
+import { CreateDBUserDTO } from 'src/app/repositories/ICreateUserRepository'
 import { EmailAlreadyInUseError } from 'src/app/errors/EmailAlreadyInUseError'
 
 describe('UpdateUser', () => {
@@ -21,7 +20,7 @@ describe('UpdateUser', () => {
       email: 'test@example.com',
       name: 'test',
       password: '12345',
-      role: UserRolesEnum.GENERAL,
+      roleKey: RoleKeysEnum.GENERAL,
       status: UserStatusEnum.ACTIVE,
     }
   }
@@ -31,9 +30,7 @@ describe('UpdateUser', () => {
     userRepository = new InMemoryUserRepository()
     sut = new UpdateUserService(userRepository, hashProvider)
 
-    testUser = await userRepository.create(
-      makeTestInputData() as CreateDBUserDTO,
-    )
+    testUser = await userRepository.create(makeTestInputData() as CreateDBUserDTO)
   })
 
   it('should return error if password is provided and has less then 5 characters', async () => {
@@ -82,9 +79,7 @@ describe('UpdateUser', () => {
 
     const expectedPassword = `${data.password}-encrypted`
 
-    hashProviderEncryptSpy.mockImplementationOnce(() =>
-      Promise.resolve(expectedPassword),
-    )
+    hashProviderEncryptSpy.mockImplementationOnce(() => Promise.resolve(expectedPassword))
 
     await sut.execute(testUser.id, data)
 
@@ -119,12 +114,17 @@ describe('UpdateUser', () => {
     const repositoryUpdateMethodSpy = jest.spyOn(userRepository, 'update')
 
     const expectedReturn = {
-      ...(makeTestInputData() as User),
+      ...makeTestInputData(),
+      role: {
+        description: '',
+        name: '',
+        key: RoleKeysEnum.GENERAL,
+        permissions: [],
+      },
+      password: '',
       id: 1,
     }
-    repositoryUpdateMethodSpy.mockImplementationOnce(() =>
-      Promise.resolve(expectedReturn),
-    )
+    repositoryUpdateMethodSpy.mockImplementationOnce(() => Promise.resolve(expectedReturn))
 
     const data = makeTestInputData()
 

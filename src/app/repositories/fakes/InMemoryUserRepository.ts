@@ -1,25 +1,26 @@
 import { UserModel } from 'src/app/models/UserModel'
-import {
-  CreateDBUserDTO,
-  ICreateUserRepository,
-} from 'src/app/repositories/ICreateUSerRepository'
-import {
-  IUpdateUserRepository,
-  UpdateDBUserDTO,
-} from 'src/app/repositories/IUpdateUserRepository'
+import { CreateDBUserDTO, ICreateUserRepository } from 'src/app/repositories/ICreateUserRepository'
+import { IUpdateUserRepository, UpdateDBUserDTO } from 'src/app/repositories/IUpdateUserRepository'
 import { IFindByUserByEmailRepository } from '../IFindUserByEmailRepository'
 
 export class InMemoryUserRepository
-  implements
-    ICreateUserRepository,
-    IUpdateUserRepository,
-    IFindByUserByEmailRepository {
+  implements ICreateUserRepository, IUpdateUserRepository, IFindByUserByEmailRepository {
   private users: UserModel[] = []
 
   async create(data: CreateDBUserDTO): Promise<UserModel> {
+    const { roleKey, ...userData } = data
+
+    const role = {
+      description: '',
+      key: roleKey,
+      name: '',
+      permissions: [],
+    }
+
     const newUser = {
       id: this.users.length + 1,
-      ...data,
+      role: role,
+      ...userData,
     }
 
     this.users.push(newUser)

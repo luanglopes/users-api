@@ -15,7 +15,7 @@ export class UpdateUserController implements IController {
   constructor(private updateUser: IUpdateUser) {}
 
   private validateRequestBody(body: UpdateUserDTO): ResultType<ValidationError, null> {
-    const requiredFields: (keyof UpdateUserDTO)[] = ['name', 'email', 'role']
+    const requiredFields: (keyof UpdateUserDTO)[] = ['name', 'email', 'roleKey']
     const errors: Record<string, MissingBodyParamError> = {}
 
     requiredFields.forEach((field) => {

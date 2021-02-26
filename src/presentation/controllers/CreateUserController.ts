@@ -1,7 +1,4 @@
-import {
-  CreateUserDTO,
-  ICreateUser,
-} from 'src/app/useCases/CreateUser/ICreateUser'
+import { CreateUserDTO, ICreateUser } from 'src/app/useCases/CreateUser/ICreateUser'
 import { HttpRequest } from 'src/core/HttpRequest'
 import { HttpResponse } from 'src/core/HttpResponse'
 import { IController } from 'src/core/IController'
@@ -12,15 +9,8 @@ import { ValidationError } from '../errors/ValidationError'
 export class CreateUserController implements IController {
   constructor(private createUser: ICreateUser) {}
 
-  private validateRequestBody(
-    body: CreateUserDTO,
-  ): ResultType<ValidationError, null> {
-    const requiredFields: (keyof CreateUserDTO)[] = [
-      'name',
-      'email',
-      'password',
-      'role',
-    ]
+  private validateRequestBody(body: CreateUserDTO): ResultType<ValidationError, null> {
+    const requiredFields: (keyof CreateUserDTO)[] = ['name', 'email', 'password', 'roleKey']
     const errors: Record<string, MissingBodyParamError> = {}
 
     requiredFields.forEach((field) => {
