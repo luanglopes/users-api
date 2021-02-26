@@ -1,5 +1,5 @@
 import { UserModel } from 'src/app/models/UserModel'
-import { CreateDBUserDTO, ICreateUserRepository } from 'src/app/repositories/ICreateUSerRepository'
+import { CreateDBUserDTO, ICreateUserRepository } from 'src/app/repositories/ICreateUserRepository'
 import { IUpdateUserRepository, UpdateDBUserDTO } from 'src/app/repositories/IUpdateUserRepository'
 import { IFindByUserByEmailRepository } from '../IFindUserByEmailRepository'
 

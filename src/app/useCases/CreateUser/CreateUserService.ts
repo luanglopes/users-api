@@ -1,7 +1,7 @@
 import { EmailAlreadyInUseError } from 'src/app/errors/EmailAlreadyInUseError'
 import { PasswordTooShortError } from 'src/app/errors/PasswordTooShortError'
 import { IHashProvider } from 'src/app/providers/IHashProvider'
-import { ICreateUserRepository } from 'src/app/repositories/ICreateUSerRepository'
+import { ICreateUserRepository } from 'src/app/repositories/ICreateUserRepository'
 import { IFindByUserByEmailRepository } from 'src/app/repositories/IFindUserByEmailRepository'
 import { Result } from 'src/core/Result'
 import { UserStatusEnum } from 'src/domain/enums/UserStatusEnum'

@@ -6,7 +6,7 @@ import { UserStatusEnum } from 'src/domain/enums/UserStatusEnum'
 import { UpdateUserService } from 'src/app/useCases/UpdateUser/UpdateUserService'
 import { IUpdateUser, UpdateUserDTO } from './IUpdateUser'
 import { UserModel } from 'src/app/models/UserModel'
-import { CreateDBUserDTO } from 'src/app/repositories/ICreateUSerRepository'
+import { CreateDBUserDTO } from 'src/app/repositories/ICreateUserRepository'
 import { User } from 'src/domain/entities/User'
 import { EmailAlreadyInUseError } from 'src/app/errors/EmailAlreadyInUseError'
 
