@@ -1,9 +1,9 @@
-import { UserRolesEnum } from '../enums/UserRolesEnum'
+import { RoleKeysEnum } from '../enums/RoleKeysEnum'
 import { Permission } from './Permission'
 
 export type Role = {
   name: string
   description: string
-  key: UserRolesEnum
+  key: RoleKeysEnum
   permissions: Permission[]
 }
