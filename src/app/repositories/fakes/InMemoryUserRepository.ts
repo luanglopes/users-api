@@ -8,9 +8,19 @@ export class InMemoryUserRepository
   private users: UserModel[] = []
 
   async create(data: CreateDBUserDTO): Promise<UserModel> {
+    const { roleKey, ...userData } = data
+
+    const role = {
+      description: '',
+      key: roleKey,
+      name: '',
+      permissions: [],
+    }
+
     const newUser = {
       id: this.users.length + 1,
-      ...data,
+      role: role,
+      ...userData,
     }
 
     this.users.push(newUser)
