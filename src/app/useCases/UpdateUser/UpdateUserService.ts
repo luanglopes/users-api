@@ -8,8 +8,7 @@ import { IUpdateUser, UpdateUserDTO, UpdateUserResult } from './IUpdateUser'
 
 export class UpdateUserService implements IUpdateUser {
   constructor(
-    private userRepository: IUpdateUserRepository &
-      IFindByUserByEmailRepository,
+    private userRepository: IUpdateUserRepository & IFindByUserByEmailRepository,
     private hashProvider: IHashProvider,
   ) {}
 

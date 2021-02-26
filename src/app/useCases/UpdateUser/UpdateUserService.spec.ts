@@ -31,9 +31,7 @@ describe('UpdateUser', () => {
     userRepository = new InMemoryUserRepository()
     sut = new UpdateUserService(userRepository, hashProvider)
 
-    testUser = await userRepository.create(
-      makeTestInputData() as CreateDBUserDTO,
-    )
+    testUser = await userRepository.create(makeTestInputData() as CreateDBUserDTO)
   })
 
   it('should return error if password is provided and has less then 5 characters', async () => {
@@ -82,9 +80,7 @@ describe('UpdateUser', () => {
 
     const expectedPassword = `${data.password}-encrypted`
 
-    hashProviderEncryptSpy.mockImplementationOnce(() =>
-      Promise.resolve(expectedPassword),
-    )
+    hashProviderEncryptSpy.mockImplementationOnce(() => Promise.resolve(expectedPassword))
 
     await sut.execute(testUser.id, data)
 
@@ -122,9 +118,7 @@ describe('UpdateUser', () => {
       ...(makeTestInputData() as User),
       id: 1,
     }
-    repositoryUpdateMethodSpy.mockImplementationOnce(() =>
-      Promise.resolve(expectedReturn),
-    )
+    repositoryUpdateMethodSpy.mockImplementationOnce(() => Promise.resolve(expectedReturn))
 
     const data = makeTestInputData()
 

@@ -1,19 +1,10 @@
 import { UserModel } from 'src/app/models/UserModel'
-import {
-  CreateDBUserDTO,
-  ICreateUserRepository,
-} from 'src/app/repositories/ICreateUSerRepository'
-import {
-  IUpdateUserRepository,
-  UpdateDBUserDTO,
-} from 'src/app/repositories/IUpdateUserRepository'
+import { CreateDBUserDTO, ICreateUserRepository } from 'src/app/repositories/ICreateUSerRepository'
+import { IUpdateUserRepository, UpdateDBUserDTO } from 'src/app/repositories/IUpdateUserRepository'
 import { IFindByUserByEmailRepository } from '../IFindUserByEmailRepository'
 
 export class InMemoryUserRepository
-  implements
-    ICreateUserRepository,
-    IUpdateUserRepository,
-    IFindByUserByEmailRepository {
+  implements ICreateUserRepository, IUpdateUserRepository, IFindByUserByEmailRepository {
   private users: UserModel[] = []
 
   async create(data: CreateDBUserDTO): Promise<UserModel> {
