@@ -3,7 +3,7 @@ import { PasswordTooShortError } from 'src/app/errors/PasswordTooShortError'
 import { FakeHashProvider } from 'src/app/providers/fakes/FakeHashProvider'
 import { InMemoryUserRepository } from 'src/app/repositories/fakes/InMemoryUserRepository'
 import { CreateUserService } from 'src/app/useCases/CreateUser/CreateUserService'
-import { UserRolesEnum } from 'src/domain/enums/UserRolesEnum'
+import { RoleKeysEnum } from 'src/domain/enums/RoleKeysEnum'
 import { UserStatusEnum } from 'src/domain/enums/UserStatusEnum'
 
 describe('CreateUser', () => {
@@ -20,7 +20,7 @@ describe('CreateUser', () => {
       email: 'test@example.com',
       name: 'test',
       password: '12345',
-      role: UserRolesEnum.GENERAL,
+      roleKey: RoleKeysEnum.GENERAL,
     }
   }
 
@@ -96,6 +96,12 @@ describe('CreateUser', () => {
 
     const expectedReturn = {
       ...makeTestInputData(),
+      role: {
+        description: '',
+        name: '',
+        key: makeTestInputData().roleKey,
+        permissions: [],
+      },
       id: 1,
       status: UserStatusEnum.ACTIVE,
     }
