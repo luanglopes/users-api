@@ -10,7 +10,7 @@ export class CreateUserController implements IController {
   constructor(private createUser: ICreateUser) {}
 
   private validateRequestBody(body: CreateUserDTO): ResultType<ValidationError, null> {
-    const requiredFields: (keyof CreateUserDTO)[] = ['name', 'email', 'password', 'role']
+    const requiredFields: (keyof CreateUserDTO)[] = ['name', 'email', 'password', 'roleKey']
     const errors: Record<string, MissingBodyParamError> = {}
 
     requiredFields.forEach((field) => {
