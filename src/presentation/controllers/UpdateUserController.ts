@@ -6,6 +6,9 @@ import { Result, ResultType } from 'src/core/Result'
 import { InvalidParamTypeError } from '../errors/InvalidParamTypeError'
 import { MissingBodyParamError } from '../errors/MissingBodyParamError'
 import { ValidationError } from '../errors/ValidationError'
+import { makeBadRequestResponse } from '../factories/makeBadRequestResponse'
+import { makeInternalServerErrorRequest } from '../factories/makeInternalServerErrorResponse'
+import { makeOkResponse } from '../factories/makeOkResponse'
 
 interface IParams {
   id: string
@@ -46,21 +49,11 @@ export class UpdateUserController implements IController {
     const paramsValidationResult = this.validateRequestParams(params)
 
     if (bodyValidationResult.isFail()) {
-      return {
-        statusCode: 400,
-        body: {
-          error: bodyValidationResult.value,
-        },
-      }
+      return makeBadRequestResponse(bodyValidationResult.value)
     }
 
     if (paramsValidationResult.isFail()) {
-      return {
-        statusCode: 400,
-        body: {
-          error: paramsValidationResult.value,
-        },
-      }
+      return makeBadRequestResponse(paramsValidationResult.value)
     }
 
     const { id } = params
@@ -69,25 +62,12 @@ export class UpdateUserController implements IController {
       const result = await this.updateUser.execute(Number(id), body)
 
       if (result.isFail()) {
-        return {
-          statusCode: 400,
-          body: {
-            error: result.value,
-          },
-        }
+        return makeBadRequestResponse(result.value)
       }
 
-      return {
-        statusCode: 201,
-        body: result.value,
-      }
+      return makeOkResponse(result.value)
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: {
-          error,
-        },
-      }
+      return makeInternalServerErrorRequest(error)
     }
   }
 }

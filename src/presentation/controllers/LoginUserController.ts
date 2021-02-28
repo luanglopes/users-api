@@ -5,6 +5,9 @@ import { IController } from 'src/core/IController'
 import { Result, ResultType } from 'src/core/Result'
 import { MissingBodyParamError } from '../errors/MissingBodyParamError'
 import { ValidationError } from '../errors/ValidationError'
+import { makeBadRequestResponse } from '../factories/makeBadRequestResponse'
+import { makeInternalServerErrorRequest } from '../factories/makeInternalServerErrorResponse'
+import { makeOkResponse } from '../factories/makeOkResponse'
 
 export class LoginUserController implements IController {
   constructor(private loginUser: ILoginUser) {}
@@ -30,37 +33,19 @@ export class LoginUserController implements IController {
     const bodyValidationResult = this.validateRequestBody(body)
 
     if (bodyValidationResult.isFail()) {
-      return {
-        statusCode: 400,
-        body: {
-          error: bodyValidationResult.value,
-        },
-      }
+      return makeBadRequestResponse(bodyValidationResult.value)
     }
 
     try {
       const result = await this.loginUser.execute(body)
 
       if (result.isFail()) {
-        return {
-          statusCode: 400,
-          body: {
-            error: result.value,
-          },
-        }
+        return makeBadRequestResponse(result.value)
       }
 
-      return {
-        statusCode: 200,
-        body: result.value,
-      }
+      return makeOkResponse(result.value)
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: {
-          error,
-        },
-      }
+      return makeInternalServerErrorRequest(error)
     }
   }
 }
